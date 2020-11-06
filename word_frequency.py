@@ -34,7 +34,7 @@ stopwords = ['the', 'to', 'in', 'and', 'including', 'of', 'as', 'have', 'has', '
             'not', "what's", 'what', '\x00\x00', 'that', 'another', 'one', 'why', 'here', 'can', 'may', 'going', 'want', 'where', 'would', 'or', 'they', 'it,', 
             'same,', 'was', 'use', 'let', 'get', 'we', 'shouldn’t', "shouldn't", 'It’s', "It's", 'been', 'by', 'visited', 'visit', 'said', 'if', 'much', 'able', 'many',
             'say', 'big', 'which', 'set', 'some', 'make', 'made', 'makes', 'like', 'very']
-countries = {'CN': 'China', 'AU': 'Australia', 'BZ': 'Brazil', 'CA': 'Canada', 'IT': 'Italy', 'GR': 'Greece', 'JP': 'Japan', 'KR': 'Republic of Korea', 'RU': 'Russia', 'SG': 'Singapore', 'SW': 'Sweden', 'UK', 'The United Kingdom', 'US': 'The United States'}
+countries = {'CN': 'China', 'AU': 'Australia', 'BZ': 'Brazil', 'CA': 'Canada', 'IT': 'Italy', 'GR': 'Greece', 'JP': 'Japan', 'KR': 'Republic of Korea', 'RU': 'Russia', 'SG': 'Singapore', 'SW': 'Sweden', 'UK': 'The United Kingdom', 'US': 'The United States'}
 
 # def delurl(text, url):
 #     for i in range (len(url)):
@@ -111,20 +111,27 @@ def words_frequency(inputfile, outputfile1, outputfile2, stopwords_):
 print ("开始汇总语段：")
 
 full_text = ''
-country_count = {'CN': 0, 'AU': 0, 'BZ': 0, 'CA': 0, 'IT': 0, 'GR': 0, 'JP': 0, 'KR': 0, 'RU': 0, 'SG': 0, 'SW': 0, 'UK', 0, 'US': 0}
+country_count = {'CN': 0, 'AU': 0, 'BZ': 0, 'CA': 0, 'IT': 0, 'GR': 0, 'JP': 0, 'KR': 0, 'RU': 0, 'SG': 0, 'SW': 0, 'UK': 0, 'US': 0}
 with open (datafile, 'r', encoding='utf-8') as f:
     count = 0
     try:
         for article in jsonlines.Reader(f):
             count += 1
+            print ('1')
             # text = dataprep(tweets['abstract'], 'en')
             assert article['year'] >= 2010 and article['year'] <= 2020
+            print ('2')
             country_count[article['country']] += 1
+            print ('3')
             text = article['abstract']
+            print ('4')
             full_text += text
+            print ('5')
             with open (file_result + "full_text_en" + ".txt", "a", encoding='utf-8') as file:
                 file.write(text + ' ')
+            print ('6')
     except:
+        print ('WRONG!!')
         print (count)
 
 with open (file_result + "country_count" + ".txt", "w", encoding='utf-8') as file:
