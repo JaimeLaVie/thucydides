@@ -21,20 +21,20 @@ def drawtripic(h, record1, record2, picname, xname, yname, Ylim, picsize, file_t
     # print ('h = ', h)
     # print ('y = ', y)
     # plt.figure(figsize = picsize)
-    plt.plot(lenh, y1, linewidth = 3, color = 'blue', label='Positive Percentage')
-    plt.plot(lenh, y2, linewidth = 3, color = 'green', label='Negative Percentage')
+    plt.plot(lenh, y1, linewidth = 3, color = 'blue', label='New York Times')
+    plt.plot(lenh, y2, linewidth = 3, color = 'green', label='Wall Street Journal')
     plt.xticks(lenh, h, rotation = 45)
     plt.tick_params(axis='x', labelsize = 16)
     plt.tick_params(axis='y', labelsize = 25)
     # plt.ylim(Ylim)
-    font_x = {'family': 'Times New Roman', 'weight': 'normal', 'size'   : 28}
-    font_y = {'family': 'Times New Roman', 'weight': 'normal', 'size'   : 28}
-    font_title = {'family': 'Times New Roman', 'weight': 'normal', 'size'   : 40}
+    font_x = {'family': 'Times New Roman', 'weight': 'normal', 'size'   : 20}
+    font_y = {'family': 'Times New Roman', 'weight': 'normal', 'size'   : 20}
+    font_title = {'family': 'Times New Roman', 'weight': 'normal', 'size'   : 20}
     plt.xlabel(xname, font_x)
     plt.ylabel(yname, font_y)
     plt.title(picname, font_title)
     # plt.legend()
-    plt.legend(loc = 0, prop = {'size':35})
+    plt.legend(loc = 0, prop = {'size':5})
     plt.savefig(file_target + "/{}.jpg".format(picname))
     plt.clf()
 
