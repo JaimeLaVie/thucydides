@@ -11,7 +11,7 @@ basic_path = os.getcwd()
 #     wordcloud = WordCloud(background_color="white", font_path=font, collocations=False, width=1000, height=860, margin=2).generate(text)
 #     wordcloud.to_file(file_target)
 
-def drawtripic(h, record1, record2, picname, xname, yname, Ylim, picsize, file_target):
+def drawtripic(h, record1, record2, label1, label2, picname, xname, yname, Ylim, picsize, file_target):
     y1 = []
     y2 = []
     for t in h:
@@ -21,8 +21,8 @@ def drawtripic(h, record1, record2, picname, xname, yname, Ylim, picsize, file_t
     # print ('h = ', h)
     # print ('y = ', y)
     # plt.figure(figsize = picsize)
-    plt.plot(lenh, y1, linewidth = 3, color = 'blue', label='New York Times')
-    plt.plot(lenh, y2, linewidth = 3, color = 'red', label='Wall Street Journal')
+    plt.plot(lenh, y1, linewidth = 3, color = 'blue', label = label1)
+    plt.plot(lenh, y2, linewidth = 3, color = 'red', label = label2)
     plt.xticks(lenh, h, rotation = 45)
     plt.tick_params(axis='x', labelsize = 16)
     plt.tick_params(axis='y', labelsize = 16)
@@ -34,15 +34,18 @@ def drawtripic(h, record1, record2, picname, xname, yname, Ylim, picsize, file_t
     plt.ylabel(yname, font_y)
     plt.title(picname, font_title)
     # plt.legend()
-    plt.legend(loc = 0, prop = {'size':10})
+    plt.legend(loc = 0, prop = {'size':15})
     plt.savefig(file_target + "/{}.jpg".format(picname))
     plt.clf()
 
 years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+rmrb = {'2010': 0, '2011': 1, '2012': 1, '2013': 4, '2014': 7, '2015': 40, '2016': 34, '2017': 28, '2018': 8, '2019': 14, '2020': 4}
+gt = {'2010': 0, '2011': 0, '2012': 1, '2013': 3, '2014': 9, '2015': 22, '2016': 17, '2017': 31, '2018': 34, '2019': 25, '2020': 11}
 nyt = {'2010': 0, '2011': 2, '2012': 1, '2013': 1, '2014': 1, '2015': 1, '2016': 0, '2017': 9, '2018': 2, '2019': 2, '2020': 1}
 wsj = {'2010': 0, '2011': 0, '2012': 0, '2013': 0, '2014': 0, '2015': 0, '2016': 1, '2017': 9, '2018': 5, '2019': 3, '2020': 0}
 
-drawtripic(years, nyt, wsj, 'US_media', 'Year', 'Number of Articles', 0, 0, basic_path + '/pictures_news')
+drawtripic(years, rmrb, gt, "People's Daily", "Global Times", 'Chinese_media', 'Year', 'Number of Articles', 0, 0, basic_path + '/pictures_news')
+drawtripic(years, nyt, wsj, 'New York Times', 'Wall Street Journal', 'US_media', 'Year', 'Number of Articles', 0, 0, basic_path + '/pictures_news')
 
 # drawwordcloud(tweets_pos_en, file_result + "/tweets_pos_en.png")
 # drawwordcloud(tweets_neg_en, file_result + "/tweets_neg_en.png")
