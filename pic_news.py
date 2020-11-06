@@ -1,3 +1,4 @@
+# coding=utf-8
 import os
 import matplotlib
 matplotlib.use('Agg')
@@ -5,6 +6,8 @@ import matplotlib.pyplot as plt
 # from wordcloud import WordCloud
 import thulac
 thuseg = thulac.thulac(seg_only=True, filt = False)
+from nltk.stem import WordNetLemmatizer
+wnl = WordNetLemmatizer()
 
 basic_path = os.getcwd()
 
@@ -49,7 +52,8 @@ wsj = {'2010': 0, '2011': 0, '2012': 0, '2013': 0, '2014': 0, '2015': 0, '2016':
 drawtripic(years, rmrb, gt, "People's Daily", "Global Times", 'Chinese_media', 'Year', 'Number of Articles', 0, 0, basic_path + '/pictures_news')
 drawtripic(years, nyt, wsj, 'New York Times', 'Wall Street Journal', 'US_media', 'Year', 'Number of Articles', 0, 0, basic_path + '/pictures_news')
 
-stopwords_zh = ['“', '”', '，', '。', '：', '的']
+stopwords_zh = ['“', '”', '，', '。', '：', '、', '《', '》', '（', '）', '·', '了', '在', '的', '吗', '对', '会', '家', '为', '来', '将', '有', '应', '？', '年', '一',
+                '下', '出', '之', '共', '与', '以']
 stopwords_en = ['the', 'to', 'in', 'and', 'including', 'of', 'as', 'have', 'has', '&amp;', 'by', 'out', 'is', 'on', 'with', 'a', 'other', 'had', 'will', 'issues', 'issue',
             'several', 'be', 'au…@gauravcsawant:', 'already', 'citing', 'new', 'over', 'wechat.\x00no…@abhijitmajumder:', 'full', 'story:', 'but', 'are',
             'about', '-', 'looking', 'i', 'his', 'for', 'this', 'at','it', 'after', 'he', 'same', 'from', 'faces', 'added', "it,'", 'amid', "'we're", 'now', 'do', 'come',
@@ -92,7 +96,7 @@ def words_frequency_zh(inputfile, outputfile1, outputfile2, stopwords_, file_res
                 variable = combined[i]
                 combined[i] = combined[i+1]
                 combined[i+1] = variable
-    with open (file_result + "{}.txt".format(outputfile1), "w", encoding='utf-8') as file:
+    with open (file_result + "/{}.txt".format(outputfile1), "w", encoding='utf-8') as file:
         file.write(str(combined))
     # 去除停用词后的词频表
     print ("4、去除停用词...")
@@ -101,7 +105,7 @@ def words_frequency_zh(inputfile, outputfile1, outputfile2, stopwords_, file_res
         if combined[n][0].lower() in stopwords_:
             continue
         combined_no_stopwords.append(combined[n])
-    with open (file_result + "{}.txt".format(outputfile2), "w", encoding='utf-8') as file:
+    with open (file_result + "/{}.txt".format(outputfile2), "w", encoding='utf-8') as file:
         file.write(str(combined_no_stopwords))
 
 def words_frequency_en(inputfile, outputfile1, outputfile2, stopwords_, file_result):
@@ -145,7 +149,7 @@ def words_frequency_en(inputfile, outputfile1, outputfile2, stopwords_, file_res
                 variable = combined[i]
                 combined[i] = combined[i+1]
                 combined[i+1] = variable
-    with open (file_result + "{}.txt".format(outputfile1), "w", encoding='utf-8') as file:
+    with open (file_result + "/{}.txt".format(outputfile1), "w", encoding='utf-8') as file:
         file.write(str(combined))
     # 去除停用词后的词频表
     print ("4、去除停用词...")
@@ -154,16 +158,16 @@ def words_frequency_en(inputfile, outputfile1, outputfile2, stopwords_, file_res
         if combined[n][0].lower() in stopwords_:
             continue
         combined_no_stopwords.append(combined[n])
-    with open (file_result + "{}.txt".format(outputfile2), "w", encoding='utf-8') as file:
+    with open (file_result + "/{}.txt".format(outputfile2), "w", encoding='utf-8') as file:
         file.write(str(combined_no_stopwords))
 
 rmrb_title = thuseg.cut(rmrb_title, text=True)
 gt_title = thuseg.cut(gt_title, text=True)
 
-words_frequency_zh(rmrb_title, 'words_frequency_original', 'words_frequency_no_stopwords', stopwords_zh, basic_path + 'pictures_news')
-words_frequency_zh(gt_title, 'words_frequency_original', 'words_frequency_no_stopwords', stopwords_zh, basic_path + 'pictures_news')
-words_frequency_en(nyt_title, 'words_frequency_original', 'words_frequency_no_stopwords', stopwords_en, basic_path + 'pictures_news')
-words_frequency_en(rwsj_title, 'words_frequency_original', 'words_frequency_no_stopwords', stopwords_en, basic_path + 'pictures_news')
+words_frequency_zh(rmrb_title, 'rmrb_words_frequency_original', 'rmrb_words_frequency_no_stopwords', stopwords_zh, basic_path + '/pictures_news')
+words_frequency_zh(gt_title, 'gt_words_frequency_original', 'gt_words_frequency_no_stopwords', stopwords_zh, basic_path + '/pictures_news')
+words_frequency_en(nyt_title, 'nyt_words_frequency_original', 'nyt_words_frequency_no_stopwords', stopwords_en, basic_path + '/pictures_news')
+words_frequency_en(wsj_title, 'wsj_words_frequency_original', 'wsj_words_frequency_no_stopwords', stopwords_en, basic_path + '/pictures_news')
 
 # drawwordcloud(tweets_pos_en, file_result + "/tweets_pos_en.png")
 # drawwordcloud(tweets_neg_en, file_result + "/tweets_neg_en.png")
