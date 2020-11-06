@@ -38,6 +38,8 @@ def drawtripic(h, record1, picname, xname, yname, Ylim, picsize, file_target):
 
 years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
 eng = {'2010': 0, '2011': 0, '2012': 0, '2013': 1, '2014': 2, '2015': 1, '2016': 4, '2017': 16, '2018': 16, '2019': 30, '2020': 14}
+zhn = {'2010': 0, '2011': 0, '2012': 1, '2013': 6, '2014': 18, '2015': 62, '2016': 86, '2017': 66, '2018': 91, '2019': 69, '2020': 18}
 
 drawtripic(years, eng, 'English Papers', 'Year', 'Number of Papers', 0, 0, basic_path + '/pictures')
+drawtripic(years, zhn, 'Chinese Papers', 'Year', 'Number of Papers', 0, 0, basic_path + '/pictures')
 
